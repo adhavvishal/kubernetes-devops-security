@@ -20,7 +20,7 @@ pipeline {
         }
       }
     }
-  }
+  
   stage ('SonarQube - SAST'){
     steps {
       sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://13.126.122.193:9000 -Dsonar.login=b6b6b4087c369b9368c5e39c7e556107f3ff328f"
