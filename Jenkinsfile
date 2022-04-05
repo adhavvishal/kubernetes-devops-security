@@ -21,9 +21,20 @@ pipeline {
       }
     }
   
-  stage ('SonarQube - SAST'){
+  /*stage ('SonarQube - SAST'){
     steps {
       sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://13.126.122.193:9000 -Dsonar.login=b6b6b4087c369b9368c5e39c7e556107f3ff328f"
+    } */
+  
+   stage('Vulnerability Scan - Docker ') {
+      steps {
+        sh "mvn dependency-check:check"
+      }
+      post {
+        always {
+          dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+        }
+      }
     }
   }
 }
